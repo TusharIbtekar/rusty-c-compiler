@@ -22,7 +22,7 @@ fn check_node(node: &AstNode, symbol_table: &mut HashMap<String, i32>) -> Result
             check_node(left, symbol_table)?;
             check_node(right, symbol_table)?;
             match op {
-                Token::Plus | Token::Minus => Ok(()),
+                Token::Plus | Token::Minus | Token::Star | Token::Slash => Ok(()),
                 _ => Err(format!("Invalid binary operator: {:?}", op)),
             }
         }

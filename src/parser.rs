@@ -52,11 +52,10 @@ pub fn parse(tokens: &[Token]) -> Vec<AstNode> {
 
 fn parse_expression(tokens: &[Token]) -> (AstNode, usize) {
     let (mut left, mut i) = parse_factor(tokens);
-    print!("Tokens: {:?}\n", tokens);
 
     while i < tokens.len() {
         match &tokens[i] {
-            Token::Plus | Token::Minus => {
+            Token::Plus | Token::Minus | Token::Star | Token::Slash => {
                 let op = tokens[i].clone();
                 i += 1;
                 let (right, right_len) = parse_factor(&tokens[i..]);
@@ -77,7 +76,6 @@ fn parse_expression(tokens: &[Token]) -> (AstNode, usize) {
 fn parse_factor(tokens: &[Token]) -> (AstNode, usize) {
     match &tokens[0] {
         Token::Integer(n) => (AstNode::Integer(*n), 1),
-
         _ => panic!("Unexpected token in factor"),
     }
 }

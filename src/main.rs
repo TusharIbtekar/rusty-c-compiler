@@ -42,6 +42,7 @@ fn main() {
         x = 5;
         y = 10;
         z = 2 + 3;
+        c = 10 / 5;
     ";
 
     compile(test_code);

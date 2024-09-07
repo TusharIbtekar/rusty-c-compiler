@@ -6,6 +6,8 @@ pub enum IRInstruction {
     LoadConstant(i32),
     Add,
     Subtract,
+    Multiply,
+    Divide,
     Store(String),
 }
 
@@ -26,6 +28,8 @@ pub fn generate_ir_node(node: &AstNode) -> Vec<IRInstruction> {
             ir.push(match op {
                 Token::Plus => IRInstruction::Add,
                 Token::Minus => IRInstruction::Subtract,
+                Token::Star => IRInstruction::Multiply,
+                Token::Slash => IRInstruction::Divide,
                 _ => panic!("Invalid binary operator"),
             });
             ir

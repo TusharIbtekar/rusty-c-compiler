@@ -5,6 +5,8 @@ pub enum Token {
     Identifier(String),
     Plus,
     Minus,
+    Star,
+    Slash,
     Equals,
     Semicolon,
 }
@@ -49,6 +51,14 @@ pub fn lexer(input: &str) -> Vec<Token> {
             '-' => {
                 chars.next();
                 tokens.push(Token::Minus);
+            }
+            '*' => {
+                chars.next();
+                tokens.push(Token::Star);
+            }
+            '/' => {
+                chars.next();
+                tokens.push(Token::Slash);
             }
             '=' => {
                 chars.next();
