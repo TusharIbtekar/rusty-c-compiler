@@ -18,6 +18,14 @@ fn check_node(node: &AstNode, symbol_table: &mut HashMap<String, i32>) -> Result
   match node {
     AstNode::Integer(_) => Ok(()),
 
+    AstNode::Identifier(name) => {
+      if symbol_table.contains_key(name) {
+        Ok(())
+      } else {
+        Err(format!("Variable {} not declared", name))
+      }
+    }
+
     AstNode::BinaryOp { left, op, right } => {
       check_node(left, symbol_table)?;
       check_node(right, symbol_table)?;

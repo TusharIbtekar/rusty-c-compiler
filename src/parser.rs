@@ -12,6 +12,7 @@ pub enum AstNode {
     identifier: String,
     value: Box<AstNode>,
   },
+  Identifier(String),
 }
 
 pub fn parse(tokens: &[Token]) -> Vec<AstNode> {
@@ -76,6 +77,20 @@ fn parse_expression(tokens: &[Token]) -> (AstNode, usize) {
 fn parse_factor(tokens: &[Token]) -> (AstNode, usize) {
   match &tokens[0] {
     Token::Integer(n) => (AstNode::Integer(*n), 1),
+    Token::Identifier(name) => {
+      if tokens.len() > 1 && tokens[1] == Token::Equals {
+        let (value, len) = parse_expression(&tokens[2..]);
+        (
+          AstNode::Assignment {
+            identifier: name.clone(),
+            value: Box::new(value),
+          },
+          len + 2,
+        )
+      } else {
+        (AstNode::Identifier(name.clone()), 1)
+      }
+    }
     _ => panic!("Unexpected token in factor"),
   }
 }

@@ -22,6 +22,9 @@ pub fn generate_ir(ast: &[AstNode]) -> Vec<IRInstruction> {
 pub fn generate_ir_node(node: &AstNode) -> Vec<IRInstruction> {
   match node {
     AstNode::Integer(n) => vec![IRInstruction::LoadConstant(*n)],
+
+    AstNode::Identifier(_) => vec![],
+
     AstNode::BinaryOp { left, op, right } => {
       let mut ir = generate_ir_node(left);
       ir.extend(generate_ir_node(right));
