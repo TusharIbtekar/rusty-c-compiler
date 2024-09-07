@@ -1,9 +1,11 @@
+mod code_generator;
 mod ir_generator;
 mod lexer;
 mod optimizer;
 mod parser;
 mod semantic_analyzer;
 
+use code_generator::generate_output_code;
 use ir_generator::generate_ir;
 use lexer::lexer;
 use optimizer::optimize_ir;
@@ -30,6 +32,9 @@ fn compile(input: &str) {
 
     optimize_ir(&mut ir);
     println!("Optimized Intermediate Representation:\n{:?}\n", ir);
+
+    let output_code = generate_output_code(&ir);
+    println!("Output Code:\n{}", output_code);
 }
 
 fn main() {
