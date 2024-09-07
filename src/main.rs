@@ -13,37 +13,37 @@ use parser::parse;
 use semantic_analyzer::semantic_analysis;
 
 fn compile(input: &str) {
-    let tokens = lexer(input);
-    println!("Tokens: {:?}", tokens);
+  let tokens = lexer(input);
+  println!("Tokens: {:?}", tokens);
 
-    let ast = parse(&tokens);
-    println!("Abstract Syntax Tree:\n{:?}\n", ast);
+  let ast = parse(&tokens);
+  println!("Abstract Syntax Tree:\n{:?}\n", ast);
 
-    match semantic_analysis(&ast) {
-        Ok(()) => println!("Semantic analysis passed.\n"),
-        Err(e) => {
-            println!("Semantic analysis failed: {}\n", e);
-            return;
-        }
+  match semantic_analysis(&ast) {
+    Ok(()) => println!("Semantic analysis passed.\n"),
+    Err(e) => {
+      println!("Semantic analysis failed: {}\n", e);
+      return;
     }
+  }
 
-    let mut ir = generate_ir(&ast);
-    println!("Intermediate Representation:\n{:?}\n", ir);
+  let mut ir = generate_ir(&ast);
+  println!("Intermediate Representation:\n{:?}\n", ir);
 
-    // optimize_ir(&mut ir);
-    // println!("Optimized Intermediate Representation:\n{:?}\n", ir);
+  // optimize_ir(&mut ir);
+  // println!("Optimized Intermediate Representation:\n{:?}\n", ir);
 
-    let output_code = generate_output_code(&ir);
-    println!("Output Code:\n{}", output_code);
+  let output_code = generate_output_code(&ir);
+  println!("Output Code:\n{}", output_code);
 }
 
 fn main() {
-    let test_code = "
-        x = 5;
-        y = 10;
-        z = 2 + 3;
-        c = 10 / 5;
-    ";
+  let test_code = "
+    x = 5;
+    y = 10;
+    z = 2 + 3;
+    c = 10 / 5;
+  ";
 
-    compile(test_code);
+  compile(test_code);
 }

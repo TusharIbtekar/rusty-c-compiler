@@ -1,0 +1,4 @@
+{
+	"rust-analyzer.rustfmt.enable": true, // Enable rustfmt
+	"rust-analyzer.rustfmt.overrideCommand": null // Ensure it's not overridden by other tools
+}
