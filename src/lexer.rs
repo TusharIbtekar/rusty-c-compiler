@@ -4,6 +4,7 @@ pub enum Token {
     Integer(i32),
     Equals,
     Semicolon,
+    Identifier(String),
 }
 
 pub fn lexer(input: &str) -> Vec<Token> {
@@ -26,14 +27,17 @@ pub fn lexer(input: &str) -> Vec<Token> {
                 tokens.push(Token::Integer(num));
             }
             'a'..='z' | 'A'..='Z' => {
-                let mut ident = String::new();
+                let mut identifier = String::new();
                 while let Some(&elem) = chars.peek() {
                     if elem.is_alphanumeric() {
-                        ident.push(elem);
+                        identifier.push(elem);
                         chars.next();
                     } else {
                         break;
                     }
+                }
+                match identifier.as_str() {
+                    _ => tokens.push(Token::Identifier(identifier)),
                 }
             }
             '=' => {
