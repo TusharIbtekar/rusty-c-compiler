@@ -1,10 +1,12 @@
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 
 pub enum Token {
     Integer(i32),
+    Identifier(String),
+    Plus,
+    Minus,
     Equals,
     Semicolon,
-    Identifier(String),
 }
 
 pub fn lexer(input: &str) -> Vec<Token> {
@@ -39,6 +41,14 @@ pub fn lexer(input: &str) -> Vec<Token> {
                 match identifier.as_str() {
                     _ => tokens.push(Token::Identifier(identifier)),
                 }
+            }
+            '+' => {
+                chars.next();
+                tokens.push(Token::Plus);
+            }
+            '-' => {
+                chars.next();
+                tokens.push(Token::Minus);
             }
             '=' => {
                 chars.next();

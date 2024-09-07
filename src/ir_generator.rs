@@ -1,9 +1,11 @@
-use crate::parser::AstNode;
+use crate::{lexer::Token, parser::AstNode};
 
 #[derive(Debug, PartialEq)]
 
 pub enum IRInstruction {
     LoadConstant(i32),
+    Add,
+    Subtract,
     Store(String),
 }
 
@@ -18,6 +20,16 @@ pub fn generate_ir(ast: &[AstNode]) -> Vec<IRInstruction> {
 pub fn generate_ir_node(node: &AstNode) -> Vec<IRInstruction> {
     match node {
         AstNode::Integer(n) => vec![IRInstruction::LoadConstant(*n)],
+        AstNode::BinaryOp { left, op, right } => {
+            let mut ir = generate_ir_node(left);
+            ir.extend(generate_ir_node(right));
+            ir.push(match op {
+                Token::Plus => IRInstruction::Add,
+                Token::Minus => IRInstruction::Subtract,
+                _ => panic!("Invalid binary operator"),
+            });
+            ir
+        }
         AstNode::Assignment { identifier, value } => {
             let mut ir = generate_ir_node(value);
             ir.push(IRInstruction::Store(identifier.clone()));
