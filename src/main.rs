@@ -1,7 +1,9 @@
+mod ir_generator;
 mod lexer;
 mod parser;
 mod semantic_analyzer;
 
+use ir_generator::generate_ir;
 use lexer::lexer;
 use parser::parse;
 use semantic_analyzer::semantic_analysis;
@@ -20,6 +22,9 @@ fn compile(input: &str) {
             return;
         }
     }
+
+    let ir = generate_ir(&ast);
+    println!("Intermediate Representation:\n{:?}\n", ir);
 }
 
 fn main() {
