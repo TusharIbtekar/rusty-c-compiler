@@ -7,8 +7,19 @@ pub enum Token {
   Minus,
   Star,
   Slash,
-  Equals,
+  LParen,
+  RParen,
+  If,
+  Else,
+  LBrace,
+  RBrace,
   Semicolon,
+  Equals,
+  DoubleEquals,
+  LessThan,
+  GreaterThan,
+  LessThanEquals,
+  GreaterThanEquals,
 }
 
 pub fn lexer(input: &str) -> Vec<Token> {
@@ -41,6 +52,8 @@ pub fn lexer(input: &str) -> Vec<Token> {
           }
         }
         match identifier.as_str() {
+          "if" => tokens.push(Token::If),
+          "else" => tokens.push(Token::Else),
           _ => tokens.push(Token::Identifier(identifier)),
         }
       }
@@ -62,7 +75,46 @@ pub fn lexer(input: &str) -> Vec<Token> {
       }
       '=' => {
         chars.next();
-        tokens.push(Token::Equals);
+        if chars.peek() == Some(&'=') {
+          chars.next();
+          tokens.push(Token::DoubleEquals);
+        } else {
+          tokens.push(Token::Equals);
+        }
+      }
+      '<' => {
+        chars.next();
+        if chars.peek() == Some(&'=') {
+          chars.next();
+          tokens.push(Token::LessThanEquals);
+        } else {
+          tokens.push(Token::LessThan);
+        }
+      }
+      '>' => {
+        chars.next();
+        if chars.peek() == Some(&'=') {
+          chars.next();
+          tokens.push(Token::GreaterThanEquals);
+        } else {
+          tokens.push(Token::GreaterThan);
+        }
+      }
+      '(' => {
+        chars.next();
+        tokens.push(Token::LParen);
+      }
+      ')' => {
+        chars.next();
+        tokens.push(Token::RParen);
+      }
+      '{' => {
+        chars.next();
+        tokens.push(Token::LBrace);
+      }
+      '}' => {
+        chars.next();
+        tokens.push(Token::RBrace);
       }
       ';' => {
         chars.next();

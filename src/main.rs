@@ -42,6 +42,11 @@ fn main() {
     x = 5;
     y = 10;
     z = x + y;
+    if (x < y) {
+      result = x * 2;
+    } else {
+      result = y / 2;
+    }
   ";
 
   compile(test_code);
