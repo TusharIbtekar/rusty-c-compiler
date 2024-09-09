@@ -28,7 +28,7 @@ The compiler is organized into several modules:
 
 ### Prerequisites
 
-Ensure you have Rust installed on your system.
+Ensure you have [Rust](https://www.rust-lang.org/tools/install) installed on your system.
 
 ### Steps
 
