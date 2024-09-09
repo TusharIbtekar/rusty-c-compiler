@@ -2,7 +2,7 @@
 
 This project is a simple C compiler written in Rust. It demonstrates the basic stages of compilation, including lexical analysis, parsing, semantic analysis, intermediate code generation, and final code generation.
 
-To get an overview of how a compiler works, [read here](https://github.com/TusharIbtekar/rusty-c-compiler)
+To get an overview of how a compiler works, [read here](https://medium.com/@ibtekar/how-a-compiler-works-a-simple-breakdown-a498edc39762)
 
 ## Features
 
